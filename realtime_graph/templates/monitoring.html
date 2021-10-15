@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSA Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js'></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/monitoring.css' %}">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxs-dashboard'></i>
+            <div class="logo_name">PSA</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+
+            <li>
+                <a href="/home">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+
+            <li>
+                <a href="/activity">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Activity</span>
+                </a>
+                <span class="tooltip">Activity</span>
+            </li>
+
+            <li>
+                <a href="/employee">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Employee</span>
+                </a>
+                <span class="tooltip">Employee</span>
+            </li>
+
+            <li>
+                <a href="/monitoring">
+                    <i class='bx bx-search-alt-2'></i>
+                    <span class="links_name">Monitoring</span>
+                </a>
+                <span class="tooltip">Monitoring</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Building" title="Type in a name">
+
+        <table id="myTable">
+            <tr class="header">
+                <th style="width:40%;">Building</th>
+                <th style="width:40%;">Level</th>
+                <th style="width:40%;">Consumption</th>
+                <th style="width:40%;">Staff Count</th>
+                <th style="width:40%;">Resources Running</th>
+                <th style="width:40%;">Hours of Usage</th>
+                <th style="width:40%;">Resources Idling</th>
+
+            </tr>
+            <tr>
+                {% for i in records %}
+            <tr>
+            <td>{{ i.building }}</td>
+            <td>{{ i.level }}</td>
+            <td>{{ i.consumption }}</td>
+            <td>{{ i.staff_count }}</td>
+            <td>{{ i.resource_running }}</td>
+            <td>{{ i.hours_usage }}</td>
+            <td>{{ i.resource_idling }}</td>
+
+            </tr>
+            {% endfor %}
+            </tr>
+
+        </table>
+
+
+    </section>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        menuBtnChange();//calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+        if (sidebar.classList.contains("open")) {
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+        } else {
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+        }
+    }
+</script>
+</body>
+
+</html>

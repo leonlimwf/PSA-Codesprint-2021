@@ -1,0 +1,368 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSA Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js'></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/employee.css' %}">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxs-dashboard'></i>
+            <div class="logo_name">PSA</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+
+            <li>
+                <a href="/home">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+
+            <li>
+                <a href="/activity">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Activity</span>
+                </a>
+                <span class="tooltip">Activity</span>
+            </li>
+
+            <li>
+                <a href="/employee">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Employee</span>
+                </a>
+                <span class="tooltip">Employee</span>
+            </li>
+
+            <li>
+                <a href="/monitoring">
+                    <i class='bx bx-search-alt-2'></i>
+                    <span class="links_name">Monitoring</span>
+                </a>
+                <span class="tooltip">Monitoring</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800 m-4">Dashboard</h1>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2" style="border-radius: 16px;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id='titlingCard'>
+                                        Energy Consumption</div>
+                                    <h2 id='energyConsumptionPercentage'>-30%</h2>
+                                    <p id='energyConsumptionAmount'>356 kWh</p>
+                                    <p id='energyConsumptionAmount'>200 CO2</p>
+                                </div>
+                                <div class="col-auto">
+                                    <img src='../static/img/undraw_bear_market_ania.svg' width='200' style="margin: 6vh;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-4 col-md-6 mb-4"> 
+                    <div class="card border-left-success shadow h-100 py-2" style="border-radius: 16px;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id='titlingCard'>
+                                        Power Consumption Target / mth</div>
+                                    <h2 id='energyConsumptionPercentage' style='color:black'>1000 kWh</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <img src='../static/img/undraw_Progress_overview_re_tvcl.svg' width='200' style="margin: 5vh;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2" style="border-radius: 16px;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id='titlingCard'>
+                                        Warning Level</div>
+                                    <h3 id='energyConsumptionPercentage'>LOW</h3>
+                                </div>
+                                <div class="col-auto">
+                                    <img src='../static/img/undraw_Notify_re_65on.svg' width='200' style="margin: 8vh;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <!-- Area Chart -->
+                <div class="col-xl-12 col-lg-7">
+                    <div class="card shadow mb-4" style="border-radius: 16px;">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Resource Usage</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <table class="table table-border">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Resource</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Start Time</th>
+                                            <th scope="col">Run Time</th>
+                                            <th scope="col">Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">Aircon</th>
+                                            <td>Fri, 8 Oct, 2021</td>
+                                            <td>10:45:23</td>
+                                            <td>1 hr 12 mins 30 sec</td>
+                                            <td>Work Station 1 @ Level 2</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Projector</th>
+                                            <td>Fri, 8 Oct, 2021</td>
+                                            <td>09:13:27</td>
+                                            <td>6 hr 12 mins 30 sec</td>
+                                            <td>Work Station 6 @ Level 5</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Monitor</th>
+                                            <td>Fri, 8 Oct, 2021</td>
+                                            <td>18:23:34</td>
+                                            <td>8 hr 12 mins 30 sec</td>
+                                            <td>Work Station 1 @ Level 2</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Aircon</th>
+                                            <td>Fri, 8 Oct, 2021</td>
+                                            <td>23:11:21</td>
+                                            <td>18 hr 12 mins 30 sec</td>
+                                            <td>Work Station 4 @ Level 3</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Lighting Panel</th>
+                                            <td>Thur, 7 Oct, 2021</td>
+                                            <td>15:15:56</td>
+                                            <td>4 hr 12 mins 30 sec</td>
+                                            <td>Common Area @ Level 1</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Projector</th>
+                                            <td>Thur, 7 Oct, 2021</td>
+                                            <td>17:56:24</td>
+                                            <td>1 hr 12 mins 30 sec</td>
+                                            <td>Meeting Room @ Level 2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Content Column -->
+                <div class="col-lg-8 mb-4">
+
+                    <!-- Project Card Example -->
+                    <div class="card shadow mb-4" >
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">This Week Usage</h6>
+                        </div>
+                        <div class="card-body">
+                            <canvas id='MyChart' height="300"></canvas>
+                            <div id="legend"></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-lg-4 mb-4">
+
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Employee Status</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                    src="../static/img/undraw_business_chat_ldig.svg" alt="...">
+                            </div>
+                            <center>
+                                <h3 id='employee_status'>Currently in Meeting</h3>
+                            </center>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+    </section>
+
+    <script src="../static/main.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    var ctx = document.getElementById("MyChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            datasets: [{
+                label: "Company Average Usage",
+                type: "line",
+                backgroundColor: "red",
+                borderColor: "red",
+                borderWidth: 1,
+                fill: false,
+                data: [12, 12, 91, 24, 21, 21, 65]
+            }, {
+                label: "Personal Average Usage",
+                type: "bar",
+                backgroundColor: "#875CFF",
+                borderColor: "#875CFF",
+                borderWidth: 1,
+                fill: true,
+                yAxisID: "axis-bar",
+                data: [
+                    14, 12,
+                    12, 16,
+                    13, 22,
+                    21
+                ]
+            }],
+        },
+        options: {
+            tooltips: {
+                displayColors: true,
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true,
+                    id: 'axis-bar'
+                }, {
+                    stacked: true,
+                    id: 'axis-time',
+                    display: false,
+                }]
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { display: false },
+            legendCallback: function (chart) {
+                var text = [];
+                text.push('<ul class="' + chart.id + '-legend">');
+                var data = chart.data;
+                var datasets = data.datasets;
+                if (datasets.length) {
+                    for (var i = 0; i < datasets.length; ++i) {
+                        text.push('<li>');
+                        if (datasets[i].type == 'line') {
+                            text.push('<span class="' + datasets[i].type + '" style="background-color:' + datasets[i].backgroundColor + '"></span>');
+                        } else {
+                            text.push('<span class="' + datasets[i].type + '" style="background-color:' + datasets[i].backgroundColor + '"></span>');
+                        }
+                        text.push(datasets[i].label);
+                        text.push('</li>');
+                    }
+                }
+                text.push('</ul>');
+                return text.join('');
+            }
+        }
+    });
+
+  
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+    closeBtn.addEventListener("click",
+        () => {
+            sidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSA Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js'></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/activity.css' %}">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxs-dashboard'></i>
+            <div class="logo_name">PSA</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+
+            <li>
+                <a href="/home">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+
+            <li>
+                <a href="/activity">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Activity</span>
+                </a>
+                <span class="tooltip">Activity</span>
+            </li>
+
+            <li>
+                <a href="/employee">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Employee</span>
+                </a>
+                <span class="tooltip">Employee</span>
+            </li>
+
+            <li>
+                <a href="/monitoring">
+                    <i class='bx bx-search-alt-2'></i>
+                    <span class="links_name">Monitoring</span>
+                </a>
+                <span class="tooltip">Monitoring</span>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800 m-4">Real Time Activity Monitoring</h1>
+
+            </div>
+            <div>
+                <p class='m-4' style='display: inline-block;'>As of </p><span id='currentTime'></span>
+
+            </div>
+
+
+            <!-- Content Row -->
+
+            <div class="row">
+                <div class="col-xl-2 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Summary</h6>
+
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <div class='col-md-10 m-3' style='height:20vh'>
+
+                                    <div
+                                        class='box-information-resource d-flex align-items-center justify-content-center'>
+                                        <center>
+                                            <h2>3</h2>
+                                            <p>Resource in Use</p>
+                                        </center>
+                                    </div>
+
+                                </div>
+                                <div class='col-md-10 m-3' style='height:20vh''>
+                                    <div class=' box-information-resource d-flex align-items-center
+                                    justify-content-center'>
+                                    <center>
+                                        <h2 id='addhere'></h2>
+                                        <p>kWh Generated</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-10 col-lg-5">
+                <div class="card shadow">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Graph Summary</h6>
+
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myChart" height="80"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class='row'>
+            <div class="col-md-6">
+                <div class="card shadow" id='analytics_table'>
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                        <p class='m-0 font-weight-bold text-primary' style='display: inline-block;'>Level 3</p>
+                        <span>Staff Energy Consumption</span>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-pie">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Person</th>
+                                        <th scope="col">Consumption</th>
+                                        <th scope="col">Run-time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>You</td>
+                                        <td id='consumptionAmount'>1</td>
+                                        <td>1 hr 20 mins 10 sec</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amy</td>
+                                        <td id='consumptionAmount1'>1</td>
+                                        <td>0 hr 54 mins 48 sec</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Josh</td>
+                                        <td id='consumptionAmount2'>1</td>
+                                        <td>0 hr 25 mins 11 sec</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kenneth</td>
+                                        <td id='consumptionAmount3'>1</td>
+                                        <td>0 hr 13 mins 46 sec</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow"'>
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Level 3</h6>
+                        <h6>Status: <span id="warning">On Target</span></h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="status-card">
+                        <div class="col-md-12">
+                            <center>
+                                <div class="col-md-4">
+                                    <div class="status-card-indiv">
+                                        <h2 id=''>100 kWh</h2>
+                                        <p>Target Level</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="status-card-indiv">
+                                        <h2 id='totalSum'></h2>
+                                        <p>Total kWh Produced</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class='status-card-indiv'>
+                                        <h2 id='average'></h2>
+                                        <p>Average kWh Produced</p>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <script src="../static/main.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function myClock() {
+        setTimeout(function () {
+            const d = new Date();
+            const n = d.toLocaleString();
+            document.getElementById("currentTime").innerText = n;
+            myClock();
+        }, 1000)
+    }
+    myClock();
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+    closeBtn.addEventListener("click",
+        () => {
+            sidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+</script>
+</body>
+
+</html>

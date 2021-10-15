@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="UTF-8">
+	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PSA Portal</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js'></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+
+</head>
+
+<body>
+	<div class="sidebar">
+		<div class="logo-details">
+			<i class='bx bxs-dashboard'></i>
+			<div class="logo_name">PSA</div>
+			<i class='bx bx-menu' id="btn"></i>
+		</div>
+		<ul class="nav-list">
+
+			<li>
+				<a href="/home">
+					<i class='bx bx-grid-alt'></i>
+					<span class="links_name">Dashboard</span>
+					{{ username }}
+				</a>
+				<span class="tooltip">Dashboard</span>
+			</li>
+
+			<li>
+				<a href="/activity">
+					<i class='bx bx-pie-chart-alt-2'></i>
+					<span class="links_name">Activity</span>
+				</a>
+				<span class="tooltip">Activity</span>
+			</li>
+
+			<li>
+				<a href="/employee">
+					<i class='bx bx-user'></i>
+					<span class="links_name">Employee</span>
+				</a>
+				<span class="tooltip">Employee</span>
+			</li>
+
+			<li>
+				<a href="/monitoring">
+					<i class='bx bx-search-alt-2'></i>
+					<span class="links_name">Monitoring</span>
+				</a>
+				<span class="tooltip">Monitoring</span>
+			</li>
+		</ul>
+	</div>
+	<section class="home-section">
+		<!-- Begin Page Content -->
+		<div class="container-fluid">
+
+			<!-- Page Heading -->
+			<div class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800 m-4">Company Dashboard</h1>
+			</div>
+
+
+			<!-- Content Row -->
+
+			<div class="row">
+				<!-- Pie Chart -->
+				<div class="col-xl-4 col-lg-5">
+					<div class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">Energy Consumption Today (hrs)</h6>
+
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="chart-pie pt-4 pb-2">
+								<canvas id="doughnut_chart" width="800" height="450"></canvas>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<!-- Area Chart -->
+				<div class="col-xl-8 col-lg-7">
+					<div class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">Energy Consumption Today</h6>
+							
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="chart-area">
+								<canvas id="myChartx"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="row">
+				<div class="cl-md-12">
+					<div class="card shadow mb-4">
+						<h4 id='graph_title'>Benchmark Graph</h4>
+						<canvas id="chartJSContainer" width="600" height="400"></canvas>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		</div>
+	</section>
+
+	<!-- <script src="../static/main.js"></script> -->
+	<script src="../static/energy.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	function generateTime() {
+		var currentdate = new Date();
+		var hour = currentdate.getHours()
+		var arr = []
+		var time = ":00"
+
+		while (hour <= 24) {
+			arr.push(hour + time)
+			hour++;
+
+		}
+		return arr
+	}
+	hourlyTiming = generateTime();
+	
+	var options = {
+		type: 'line',
+		data: {
+			labels: hourlyTiming,
+			datasets: [
+				{
+					label: 'PSA',
+					data: [12, 19, 3, 5, 2, 3],
+					borderWidth: 3,
+					borderColor: '#875cff',
+					lineTension: 0.3,
+				},
+				{
+					label: 'Company Y',
+					data: [7, 11, 5, 8, 3, 7],
+					borderWidth: 3,
+					borderColor: 'rgb(21, 215,40,0.1)',
+					lineTension: 0.3,
+				},
+				{
+					label: 'Company X',
+					data: [15, 2, 7, 17, 7, 12],
+					borderWidth: 3,
+					borderColor: 'rgb(255, 53, 53,0.1)',
+					lineTension: 0.3,
+				},
+
+			]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						reverse: false
+					}
+				}]
+			}
+		}
+	}
+
+	var ctx = document.getElementById('chartJSContainer').getContext('2d');
+	new Chart(ctx, options);
+
+
+	var ctx = document.getElementById("doughnut_chart").getContext('2d');
+
+	var myChart1 = new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: ["Running", "Stopped", "Idling"],
+			datasets: [{
+				backgroundColor: [
+					"#15D728",
+					"#8459FF",
+					"#FF0B80",
+				],
+				data: [62, 24, 14]
+			}]
+		}
+	});
+
+	let sidebar = document.querySelector(".sidebar");
+	let closeBtn = document.querySelector("#btn");
+	let searchBtn = document.querySelector(".bx-search");
+
+	closeBtn.addEventListener("click", () => {
+		sidebar.classList.toggle("open");
+		menuBtnChange();//calling the function(optional)
+	});
+
+	searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+		sidebar.classList.toggle("open");
+		menuBtnChange(); //calling the function(optional)
+	});
+
+	// following are the code to change sidebar button(optional)
+	function menuBtnChange() {
+		if (sidebar.classList.contains("open")) {
+			closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+		} else {
+			closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+		}
+	}
+</script>
+</body>
+
+</html>

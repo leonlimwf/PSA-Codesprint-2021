@@ -1,8 +1,5 @@
 # PSA Portal
 
-[Website Link for PSA Portal](http://134.209.100.55:8000/)
-
-[Video Submission](https://youtu.be/bHQMrK93rHI)
 
 PSA Portal is a website where one can track how much energy they have used up, while also serving as a place for others to view the company daily consumption etc. This ensures that one can stick to the limit given (if any)
 
